@@ -82,7 +82,18 @@ if __name__ == '__main__':
   desc = "Web server to serve as target for a programming exercise"
   parser = argparse.ArgumentParser(description=desc)
   parser.add_argument("--debug", action="store_true", default=False)
+  parser.add_argument("--public", action="store_true", default=False)
   args = parser.parse_args()
+  host = None
   if args.debug:
     app.debug = True
-  app.run()
+  if args.public:
+    if args.debug:
+      print >>sys.stderr, """\
+Cannot run in debug mode and listen publicly.
+(Flask allows arbitrary remote code execution in debug mode!)
+"""
+      sys.exit(1)
+    else:
+      host = "0.0.0.0"
+  app.run(host=host)
