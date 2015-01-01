@@ -1,0 +1,5 @@
+A simple Flask-based web app to serve as a dummy target
+for a programming exercise. The app serves a page that
+either includes a particular pattern or one without it,
+switching between the two on a periodic basis. It can
+serve the pages normally or as 404 error pages.
