@@ -83,6 +83,7 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser(description=desc)
   parser.add_argument("--debug", action="store_true", default=False)
   parser.add_argument("--public", action="store_true", default=False)
+  parser.add_argument("--port", default=5000, type=int)
   args = parser.parse_args()
   host = None
   if args.debug:
@@ -96,4 +97,4 @@ Cannot run in debug mode and listen publicly.
       sys.exit(1)
     else:
       host = "0.0.0.0"
-  app.run(host=host)
+  app.run(host=host, port=args.port)
