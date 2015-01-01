@@ -48,10 +48,15 @@ def page():
   size = flask.request.args.get("size", default=10, type=int)
   # Pattern to hide in the "on" content
   pattern = flask.request.args.get("pattern", default="needle")
+  # Pattern to hide in the "on" content
+  useragent = flask.request.args.get("require_useragent")
   # Include a debugging suffix on the page?
   debug_suffix = flask.request.args.get("debug_suffix")
   # Generate content instead of an error message even when serving 404?
   content_on_error = flask.request.args.get("content_on_error")
+
+  if useragent and useragent != flask.request.headers.get("User-Agent"):
+    return "Forbidden", 403
 
   t = _timer.uptime()
   full_period = on_period + off_period
